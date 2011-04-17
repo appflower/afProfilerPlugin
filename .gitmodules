@@ -1,0 +1,6 @@
+[submodule "lib/vendor/symfony2/HttpKernel"]
+	path = lib/vendor/symfony2/HttpKernel
+	url = git@github.com:appflower/HttpKernel.git
+[submodule "lib/vendor/symfony2/HttpFoundation"]
+	path = lib/vendor/symfony2/HttpFoundation
+	url = git@github.com:appflower/HttpFoundation.git
