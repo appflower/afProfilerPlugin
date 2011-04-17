@@ -1,0 +1,5 @@
+afProfilerPlugin
+
+Thanks to this plugin you can profile AppFlower applications.
+We are using HttpKernel and HttpFoundation symfony2 components here.
+Profiler is plugged into sf1.4 processing flow.
