@@ -10,12 +10,11 @@ There is a token generated and injected into response headers.
 
 In order to use this plugin you need to place it under plugins/afProfilerPlugin dir
 and modify your filters.yml file.
-We need to put afProfilerFilter at the beginning of filter chain:
-
-profiling:
-  class: afProfilerFilter
+We need to put afProfilerFilter right after rendering filter in filters chain:
 
 rendering: ~
+profiling:
+  class: afProfilerFilter
 security:  ~
 ...
 
