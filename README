@@ -3,3 +3,20 @@ afProfilerPlugin
 Thanks to this plugin you can profile AppFlower applications.
 We are using HttpKernel and HttpFoundation symfony2 components here.
 Profiler is plugged into sf1.4 processing flow.
+
+It collects data regarding all requests.
+There is a token generated and injected into response headers.
+
+
+In order to use this plugin you need to modify your filters.yml file.
+We need to put afProfilerFilter at the beginning of filter chain:
+
+profiling:
+  class: afProfilerFilter
+
+rendering: ~
+security:  ~
+...
+
+
+
