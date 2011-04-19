@@ -9,14 +9,11 @@ class afProfilerFilter extends sfFilter
 {
 	public function execute (sfFilterChain $filterChain)
 	{
-        if ($this->isFirstCall()) {
-            $profiler = afProfiler::create();
-            $this->getContext()->set('profiler', $profiler);
-            $filterChain->execute();
-        } else {
-            $profiler = $this->getContext()->get('profiler');
-            $profiler->collectFromContext();
-            $filterChain->execute();
-        }
+        $profiler = afProfiler::create();
+        $this->getContext()->set('profiler', $profiler);
+
+        $filterChain->execute();
+
+        $profiler->collectFromContext();
     }
 }

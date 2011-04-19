@@ -30,12 +30,19 @@ class afProfiler extends HttpKernel\Profiler\Profiler
         if (!$context) {
             $context = sfContext::getInstance();
         }
+        $request = $context->getRequest();
+        $response = $context->getResponse();
         $this->collect(
-            $this->getSf2Request($context->getRequest()),
-            $this->getSf2Response($context->getResponse())
+            $this->getSf2Request($request),
+            $this->getSf2Response($response)
         );
+
+        $response->setHttpHeader('X-Debug-Token', $this->getToken());
     }
 
+    /**
+     * Needed for workaround, see: http://tickets.appflower.com/t/887
+     */
     public function sendHeaders()
     {
         header("X-Debug-Token: ".$this->getToken());

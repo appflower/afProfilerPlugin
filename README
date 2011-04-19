@@ -8,7 +8,8 @@ It collects data regarding all requests.
 There is a token generated and injected into response headers.
 
 
-In order to use this plugin you need to modify your filters.yml file.
+In order to use this plugin you need to place it under plugins/afProfilerPlugin dir
+and modify your filters.yml file.
 We need to put afProfilerFilter at the beginning of filter chain:
 
 profiling:
@@ -19,4 +20,6 @@ security:  ~
 ...
 
 
-
+You may also need to init and update git submodules:
+git submodule init
+git submodule update
