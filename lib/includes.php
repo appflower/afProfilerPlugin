@@ -30,3 +30,5 @@ require_once "${baseDir}HttpFoundation/Session.php";
 require_once "${baseDir}HttpFoundation/SessionStorage/SessionStorageInterface.php";
 require_once "${baseDir}HttpFoundation/SessionStorage/NativeSessionStorage.php";
 require_once "${baseDir}HttpFoundation/SessionStorage/ArraySessionStorage.php";
+
+require_once dirname(__FILE__).'/dataCollector/PropelDataCollector.php';

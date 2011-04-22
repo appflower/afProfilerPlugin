@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__DIR__).'/afProfiler.class.php';
+
 /**
  * A filter that collects profiling data
  *
