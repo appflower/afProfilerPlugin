@@ -12,8 +12,8 @@ class WidgetDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
     {
         $timers = sfTimerManager::getTimers();
         $this->data = array(
-            'action' => $timers['afAction'] ? round($timers['afAction']->getElapsedTime(), 2) : null,
-            'render' => $timers['afRender'] ? round($timers['afRender']->getElapsedTime(), 2) : null
+            'action' => @$timers['afAction'] ? round($timers['afAction']->getElapsedTime(), 2) : null,
+            'render' => @$timers['afRender'] ? round($timers['afRender']->getElapsedTime(), 2) : null
         );
     }
 
