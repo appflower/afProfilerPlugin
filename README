@@ -15,10 +15,18 @@ We need to put afProfilerFilter right after rendering filter in filters chain:
 rendering: ~
 profiling:
   class: afProfilerFilter
+  file: %SF_ROOT_DIR%/plugins/afProfilerPlugin/lib/filter/afProfilerFilter.php
 security:  ~
 ...
+
+Note that there is also afProfilerExecutionFilter used but it is defined in filters.yml
 
 
 You may also need to init and update git submodules:
 git submodule init
 git submodule update
+
+
+TODO:
+* implement widgets that lists logged requests and shows it's detailed informations
+* provide possibility to show diff between two requests

@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation as HttpFoundation;
 /**
  * We are extending Profiler class to translate sf1.4 request and response objects to
  * their representative objects in sf2 world
+ *
+ * @todo We are collecting data for all requests by default
+ *       For production systems cases it would be nice to provide 'only_exceptions' option
  */
 class afProfiler extends HttpKernel\Profiler\Profiler
 {
@@ -22,6 +25,8 @@ class afProfiler extends HttpKernel\Profiler\Profiler
         $profiler->add($requestDataCollector);
         $propelDataCollector = new PropelDataCollector;
         $profiler->add($propelDataCollector);
+        $widgetDataCollector = new WidgetDataCollector;
+        $profiler->add($widgetDataCollector);
 
         return $profiler;
     }
