@@ -44,6 +44,11 @@ class PropelDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
         );
     }
 
+    public function getQueriesCount()
+    {
+        return $this->data['queriesCount'];
+    }
+
     public function getName()
     {
         return 'propel';
