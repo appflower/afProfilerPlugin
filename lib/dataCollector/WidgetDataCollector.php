@@ -4,6 +4,10 @@
  *
  * This one collects informations about time spent for each part of widget request processing
  *
+ * @todo:
+ * afRender timer can be unavailable at some cases
+ * This is caused by LayoutExt class being used in actions directly - such actions code needs to be corrected for afRender timer
+ *
  * @author Łukasz Wojciechowski <luwo@appflower.com>
  */
 class WidgetDataCollector extends Symfony\Component\HttpKernel\DataCollector\DataCollector
