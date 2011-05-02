@@ -7,6 +7,17 @@
  * Only when there is logger created by Propel we have possibility to "listen"
  * logged messages and collect them.
  *
+
+ * If you want to collect also data regarding time spent for queries - you should enable time logging like below
+dev:
+  propel:
+    param:
+      classname:  DebugPDO
+      debug:
+        realmemoryusage: true
+        details:
+          time:       { enabled: true }
+
  *
  * @author Łukasz Wojciechowski <luwo@appflower.com>
  */
@@ -14,6 +25,7 @@ class PropelDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
 {
     private $active = false;
     private $queries = array();
+    private $queriesTime = array();
 
     public function __construct() {
         $this->active = Propel::hasLogger();
@@ -29,24 +41,62 @@ class PropelDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
         }
 
         $subject = $event->getSubject();
-
         if ($subject instanceof sfPropelLogger) {
             $parameters = $event->getParameters();
             $logMessage = $parameters[0];
-            $this->queries[] = $logMessage;
+            $logMessageData = $this->parseLogMessage($logMessage);
+            $this->queries[] = $logMessageData['query'];
+            $this->queriesTime[] = $logMessageData['time'];
         }
+    }
+    
+    /**
+     * Parses propel log message and tries to extract other informations beside query itself
+     * 
+     * @param type $logMessage 
+     */
+    private function parseLogMessage($logMessage)
+    {
+        $data = array();
+        if (!is_numeric(strpos($logMessage, ' | '))) {
+            $data['query'] = $logMessage;
+            return $data;
+        }
+        
+        
+        $parts = explode('|', $logMessage);
+        $partsCount = count($parts);
+        
+        $timePart = $parts[0];
+        $timePart = str_replace('time:', '', $timePart);
+        $timePart = str_replace('sec', '', $timePart);
+        $timePart = trim($timePart);
+        $timePart = $timePart * 1000; //sec => ms
+        
+        $queryPart = trim($parts[$partsCount-1]);
+        
+        $data['time'] = $timePart;
+        $data['query'] = $queryPart;
+        
+        return $data;
     }
 
     public function collect(Symfony\Component\HttpFoundation\Request $request, Symfony\Component\HttpFoundation\Response $response, \Exception $exception = null)
     {
         $this->data = array(
             'queriesCount' => count($this->queries),
+            'queriesTotalTime' => array_sum($this->queriesTime)
         );
     }
 
     public function getQueriesCount()
     {
         return $this->data['queriesCount'];
+    }
+    
+    public function getTotalQueriesTime()
+    {
+        return $this->data['queriesTotalTime'];
     }
 
     public function getName()
