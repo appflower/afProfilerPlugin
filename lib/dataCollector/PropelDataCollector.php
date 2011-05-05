@@ -8,13 +8,12 @@
  * logged messages and collect them.
  *
 
- * If you want to collect also data regarding time spent for queries - you should enable time logging like below
+ * If you want to collect also data (Requires Propel 1.5) regarding time spent for queries - you should enable time logging like below
 dev:
   propel:
     param:
       classname:  DebugPDO
       debug:
-        realmemoryusage: true
         details:
           time:       { enabled: true }
 
@@ -46,7 +45,7 @@ class PropelDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
             $logMessage = $parameters[0];
             $logMessageData = $this->parseLogMessage($logMessage);
             $this->queries[] = $logMessageData['query'];
-            $this->queriesTime[] = $logMessageData['time'];
+            $this->queriesTime[] = @$logMessageData['time'];
         }
     }
     

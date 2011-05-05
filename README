@@ -7,10 +7,9 @@ Profiler is plugged into sf1.4 processing flow.
 It collects data regarding all requests.
 There is a token generated and injected into response headers.
 
-
 In order to use this plugin you need to place it under plugins/afProfilerPlugin dir
 and modify your filters.yml file.
-We need to put afProfilerFilter right after rendering filter in filters chain:
+You need to configure afProfilerPlugin specific filter in filters.yml file:
 
 rendering: ~
 profiling:
@@ -19,7 +18,16 @@ profiling:
 security:  ~
 ...
 
-Note that there is also afProfilerExecutionFilter used but it is defined in filters.yml
+And there is second filter that needs to be used but this one you can enable only
+by editing appFlowerPlugin/config/config.php file
+At the end of this file you should a line like this one:
+
+sfConfig::set('sf_execution_filter', array('afExecutionFilter', array('execution')));
+
+change it to:
+
+sfConfig::set('sf_execution_filter', array('afProfilerExecutionFilter', array('execution')));
+
 
 
 You may also need to init and update git submodules:

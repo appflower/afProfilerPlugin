@@ -2,7 +2,7 @@
 require_once dirname(__DIR__).'/afProfiler.class.php';
 
 /**
- * A filter that collects profiling data
+ * A filter that initates profiler and collects profiling data
  *
  * We need to plug profiler using symfony filters to let profiler start collecting
  * data as soon as possible.
