@@ -25,10 +25,16 @@ class afProfilerExecutionFilter extends afExecutionFilter
         $actionInstance->postExecute();
         $actionTimer->addTime();
 
-        $renderTimer = sfTimerManager::getTimer('afRender');
         $viewName = is_null($viewName) ? sfView::SUCCESS : $viewName;
         $viewName = $this->interpretView($actionInstance, $viewName);
-        $renderTimer->addTime();
         return is_null($viewName) ? sfView::SUCCESS : $viewName;
+    }
+    
+    /**
+     * @return afRenderingRouter 
+     */
+    protected function createRenderingRouter(sfAction $actionInstance)
+    {
+        return new afProfilerRenderingRouter($actionInstance);
     }
 }

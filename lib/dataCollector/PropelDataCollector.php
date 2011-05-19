@@ -9,6 +9,7 @@
  *
 
  * If you want to collect also data (Requires Propel 1.5) regarding time spent for queries - you should enable time logging like below
+ * When you do that make sure you are running application in dev environment
 dev:
   propel:
     param:
