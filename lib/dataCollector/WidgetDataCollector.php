@@ -18,7 +18,6 @@ class WidgetDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
         $this->data = array(
             'action' => @$timers['afAction'] ? round($timers['afAction']->getElapsedTime(), 2) : null,
             'read' => @$timers['afRead'] ? round($timers['afRead']->getElapsedTime(), 2) : null,
-            'wrap' => @$timers['afWrap'] ? round($timers['afWrap']->getElapsedTime(), 2) : null,
             'render' => @$timers['afRender'] ? round($timers['afRender']->getElapsedTime(), 2) : null,
         );
     }
@@ -38,11 +37,6 @@ class WidgetDataCollector extends Symfony\Component\HttpKernel\DataCollector\Dat
         return number_format($this->data['read']*1000, 0, '.', '');
     }
     
-    function getWrapTime()
-    {
-        return number_format($this->data['wrap']*1000, 0, '.', '');
-    }
-
     public function getName()
     {
         return 'widget';

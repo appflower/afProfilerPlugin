@@ -5,9 +5,6 @@ class afProfilerRenderingRouter extends afRenderingRouter
     public function render() {
         $timer = sfTimerManager::getTimer('afRead');
         $doc = $this->readWidgetConfig($this->module, $this->action);
-        $timer->addTime();
-
-        $timer = sfTimerManager::getTimer('afWrap');
         $view = $this->wrapDoc($doc, $this->actionVars);
         $timer->addTime();
         
